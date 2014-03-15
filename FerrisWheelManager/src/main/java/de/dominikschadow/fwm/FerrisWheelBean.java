@@ -52,7 +52,8 @@ public class FerrisWheelBean {
     }
 
     public List<FerrisWheel> findFerrisWheels(Search search) {
-        Query query = em.createNativeQuery("select * from ferris_wheels where name = '" + search.getName() + "'", FerrisWheel.class);
+        Query query = em.createNativeQuery("select * from ferris_wheels where name = :search", FerrisWheel.class);
+        query.setParameter("search", search.getName());
         List resultList = query.getResultList();
 
         logger.info("Search returned {} results", resultList.size());
